@@ -1,5 +1,6 @@
 package com.NJU.SWI.LeeBBS;
 
+import com.NJU.SWI.LeeBBS.dao.DiscussPostMapper;
 import com.NJU.SWI.LeeBBS.dao.UserMapper;
 import com.NJU.SWI.LeeBBS.entity.User;
 import org.junit.Test;
@@ -27,5 +28,12 @@ public class MapperTests {
         User user = new User("zhangsan","123",null,null,0,0,"0",null,null);
         int effected = userMapper.insertUser(user);
         System.out.println(effected);
+    }
+    @Autowired
+    private DiscussPostMapper discussPostMapper;
+    @Test
+    public void testDiscussPost(){
+        System.out.println(discussPostMapper.selectCount(0));
+        System.out.println(discussPostMapper.selectDiscussPostList(0,0,10));
     }
 }
