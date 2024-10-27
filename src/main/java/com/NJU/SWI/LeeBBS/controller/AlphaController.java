@@ -38,7 +38,7 @@ public class AlphaController {
         System.out.println(req.getParameter("code"));
 
         resp.setContentType("text/html;charset=utf-8");
-        try(PrintWriter writer = resp.getWriter();){
+        try(PrintWriter writer = resp.getWriter()){
             writer.write("<h1>GOGOGO<h1/>");
         }catch(Exception e){
             e.printStackTrace();
@@ -76,7 +76,7 @@ public class AlphaController {
     @RequestMapping(value = "/school", method =RequestMethod.GET)
     public String getSchool(Model model){
         model.addAttribute("name","NJU");
-
+        // Check warnings
         return "/demo/view";
     }
 
