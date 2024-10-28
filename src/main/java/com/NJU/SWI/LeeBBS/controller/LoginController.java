@@ -3,6 +3,11 @@ package com.NJU.SWI.LeeBBS.controller;
 import com.NJU.SWI.LeeBBS.entity.User;
 import com.NJU.SWI.LeeBBS.service.UserService;
 import com.NJU.SWI.LeeBBS.util.LeeBBSConstant;
+import com.google.code.kaptcha.Producer;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
+import java.awt.image.BufferedImage;
 import java.util.Map;
 
 @Controller
@@ -55,4 +62,25 @@ public class LoginController implements LeeBBSConstant {
     public String getLoginPage(){
         return "/site/login";
     }
+
+    @Autowired
+    private Producer kaptchaProducer;
+    @Autowired
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+    @RequestMapping(value = "/kaptcha",method = RequestMethod.GET)
+    public void getKaptcha(HttpServletResponse response, HttpSession session){
+        String text = kaptchaProducer.createText();
+        BufferedImage image = kaptchaProducer.createImage(text);
+//        BufferedImage image = kaptchaProducer.createImage("sCCCCC");
+
+        session.setAttribute("kaptcha",text);
+        response.setContentType("image/png");
+        try {
+            //输出图片到页面
+            javax.imageio.ImageIO.write(image,"png",response.getOutputStream());
+        } catch (Exception e) {
+            logger.error("响应验证码失败"  + e.getMessage());
+        }
+    }
+
 }

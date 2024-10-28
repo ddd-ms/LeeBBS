@@ -1,9 +1,12 @@
 package com.NJU.SWI.LeeBBS.controller;
 
 import com.NJU.SWI.LeeBBS.dao.AlphaDao;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -94,5 +97,46 @@ public class AlphaController {
                 Map.of("name","L1","age",22),
                 Map.of("name","L2","age",28)
         );
+    }
+
+    // Cookie Relevant
+    @RequestMapping(path = "/cookie/set",method = RequestMethod.GET)
+    @ResponseBody
+    public String setCookie(HttpServletResponse resp){
+        Cookie cookie = new Cookie("code", "12311111111111111");
+        cookie.setPath("/LeeBBS/alpha-controller");
+        cookie.setMaxAge(6000);
+        resp.addCookie(cookie);
+        return "set cookie";
+
+    }
+    @RequestMapping(path = "/cookie/get",method = RequestMethod.GET)
+    @ResponseBody
+    public String getCookie(HttpServletRequest req){
+        Cookie[] cookies = req.getCookies();
+        if (cookies == null){
+            return "no cookie";
+        }
+        for(Cookie cookie : cookies){
+            System.out.println(cookie.getName() + ":" + cookie.getValue());
+        }
+        return "get cookie: ";
+    }
+    @RequestMapping(value = "/cookie/getp",method = RequestMethod.GET)
+    @ResponseBody
+    public String getCookieP(@CookieValue("code") String code){
+        return "get cookie: " + code;
+    }
+
+    @RequestMapping(value = "/session/set",method = RequestMethod.GET)
+    @ResponseBody
+    public String setSession(HttpSession session){
+        session.setAttribute("code","123456");
+        return "set session";
+    }
+    @RequestMapping(value = "/session/get",method = RequestMethod.GET)
+    @ResponseBody
+    public String getSession(HttpSession session){
+        return "get session: " + session.getAttribute("code");
     }
 }
