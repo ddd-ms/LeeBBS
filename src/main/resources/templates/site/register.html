@@ -69,8 +69,8 @@
 						<div class="col-sm-10">
 							<input type="text"
 								   th:class="|form-control ${usernameMsg!=null?'is-invalid':''}|"
-								   th:value="${user!=null?user.username:''}"
-								   id="username" name="username" placeholder="请输入您的账号!" required>
+								   th:value="${user!=null?user.userName:''}"
+								   id="username" name="userName" placeholder="请输入您的账号!" required>
 							<div class="invalid-feedback" th:text="${usernameMsg}">
 								该账号已存在!
 							</div>
