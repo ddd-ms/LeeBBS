@@ -30,7 +30,7 @@ public class LoginTicketInterceptor implements HandlerInterceptor {
         String ticket = null;
         if (cookies != null){
             for (Cookie cookie : cookies){
-                System.out.println(cookie.getName());
+                System.out.println(this.getClass().getName() + ": " + cookie.getName());
                 if (cookie.getName().equals("ticket")){
                     ticket = cookie.getValue();
                 }

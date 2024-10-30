@@ -98,6 +98,10 @@ public class UserService implements LeeBBSConstant {
         }
     }
 
+    public int updateHeader(int userId, String headerUrl){
+        return userMapper.updateHeaderUrl(userId,headerUrl);
+    }
+
 
 
 }
