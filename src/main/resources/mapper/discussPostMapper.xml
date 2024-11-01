@@ -6,6 +6,10 @@
     <sql id="selFields">
         id,user_id,title,content,type,status,create_time,comment_count,score
     </sql>
+    <insert id="insertDiscussPost">
+        insert into discuss_post(user_id,title,content,type,status,create_time,comment_count,score)
+        values(#{userId},#{title},#{content},#{type},#{status},#{createTime},#{commentCount},#{score})
+    </insert>
     <select id="selectCount" resultType="int">
         select count(*) from discuss_post
         where status!=2
@@ -22,5 +26,10 @@
         </if>
         order by type desc,create_time desc
         limit #{offset},#{limit}
+    </select>
+    <select id="getDiscussPostById" resultType="com.NJU.SWI.LeeBBS.entity.DiscussPost">
+        select <include refid="selFields"/>
+        from discuss_post
+        where id = #{id}
     </select>
 </mapper>

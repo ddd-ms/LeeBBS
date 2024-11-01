@@ -22,6 +22,7 @@ function publish() {
 	    function(data) {
 	        data = $.parseJSON(data);
 	        // 在提示框中显示返回消息
+			console.log(data)
 	        $("#hintBody").text(data.msg);
 	        // 显示提示框
             $("#hintModal").modal("show");

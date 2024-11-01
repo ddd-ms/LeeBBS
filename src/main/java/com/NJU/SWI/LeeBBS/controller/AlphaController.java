@@ -1,6 +1,7 @@
 package com.NJU.SWI.LeeBBS.controller;
 
 import com.NJU.SWI.LeeBBS.dao.AlphaDao;
+import com.NJU.SWI.LeeBBS.util.BBSUtil;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -138,5 +139,11 @@ public class AlphaController {
     @ResponseBody
     public String getSession(HttpSession session){
         return "get session: " + session.getAttribute("code");
+    }
+
+    @RequestMapping(value ="testAjax")
+    @ResponseBody
+    public String testAjax(String name,int age){
+        return BBSUtil.jsonDumps(200,"success",Map.of("name",name,"age",age));
     }
 }
