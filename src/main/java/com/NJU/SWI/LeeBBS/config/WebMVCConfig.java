@@ -1,6 +1,8 @@
 package com.NJU.SWI.LeeBBS.config;
 
+import com.NJU.SWI.LeeBBS.annotation.LoginRequired;
 import com.NJU.SWI.LeeBBS.controller.interceptor.AlphaInterceptor;
+import com.NJU.SWI.LeeBBS.controller.interceptor.LoginRequiredInterceptor;
 import com.NJU.SWI.LeeBBS.controller.interceptor.LoginTicketInterceptor;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ public class WebMVCConfig implements WebMvcConfigurer {
     private AlphaInterceptor alphaInterceptor;
     @Autowired
     private LoginTicketInterceptor loginTicketInterceptor;
+    @Autowired
+    private LoginRequiredInterceptor loginRequiredInterceptor;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 //        registry.addInterceptor(alphaInterceptor)
@@ -21,6 +25,9 @@ public class WebMVCConfig implements WebMvcConfigurer {
 //                .addPathPatterns("/register","/login");
         registry.addInterceptor(loginTicketInterceptor)
                 .excludePathPatterns("/**/*.css","/**/*.js","/**/*.png","/**/*.jpg");
+        registry.addInterceptor(loginRequiredInterceptor)
+                .excludePathPatterns("/**/*.css","/**/*.js","/**/*.png","/**/*.jpg");
 
     }
+
 }

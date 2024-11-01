@@ -1,5 +1,6 @@
 package com.NJU.SWI.LeeBBS.controller;
 
+import com.NJU.SWI.LeeBBS.annotation.LoginRequired;
 import com.NJU.SWI.LeeBBS.service.UserService;
 import com.NJU.SWI.LeeBBS.util.BBSUtil;
 import com.NJU.SWI.LeeBBS.util.HostHolder;
@@ -31,12 +32,12 @@ public class UserController {
     private UserService userService;
     @Autowired
     private HostHolder hostHolder;
-
+    @LoginRequired
     @RequestMapping(value = "/setting", method = RequestMethod.GET)
     public String setting() {
         return "/site/setting";
     }
-
+    @LoginRequired
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String uploadHeader(MultipartFile headerImage, Model model) {
         if (headerImage == null) {
